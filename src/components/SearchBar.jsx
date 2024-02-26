@@ -1,5 +1,5 @@
 const {useState, useEffect} = require('react');
-const ReportsContainer = require('./ReportsContainer');
+const ReportsContainer = require('./ReportsContainer.jsx');
 function SearchBar({setSearchTerm}) {
   const [search, setSearch] = useState('');
     useEffect(() => {
