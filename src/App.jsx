@@ -1,5 +1,5 @@
 import { useState } from "react";
-import NavBar from "./components/NavBar.jsx";
+import Header from "./components/Header.jsx";
 import ReportMain from "./components/ReportMain.jsx";
 import Button from "./components/Button.jsx";
 import reactLogo from "./assets/react.svg";
@@ -12,7 +12,7 @@ function App() {
   return (
     <>
       <div>
-        <NavBar />
+        <Header />
         <ReportMain />
       </div>
     </>
