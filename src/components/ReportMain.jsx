@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import ReportsContainer from "./ReportsContainer.jsx";
 import SearchBar from "./SearchBar.jsx";
-import CreateReporteContainer from "./CreateReporteContainer.jsx";
+import CreateReportContainer from "./CreateReportContainer.jsx";
 
 const ReportMain = () => {
   const [Container, setContainer] = useState("");
@@ -9,7 +9,7 @@ const ReportMain = () => {
   // useEffect(() => {}, [ToggleCreate]);
   return (
     <div>
-      <CreateReporteContainer
+      <CreateReportContainer
         toggleCreate={toggleCreate}
         setToggleCreate={setToggleCreate}
       />

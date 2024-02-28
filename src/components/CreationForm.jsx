@@ -26,7 +26,11 @@ const CreationForm = () => {
         </label>
         <label>
           Type:
-          <input type="text" name="type" />
+          <select name="severity" id="severity">
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
         </label>
         <label>
           Description:

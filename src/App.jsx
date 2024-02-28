@@ -3,6 +3,7 @@ import Header from "./components/Header.jsx";
 import ReportMain from "./components/ReportMain.jsx";
 import ReportsContainer from "./components/ReportsContainer.jsx";
 import SearchBar from "./components/SearchBar.jsx";
+import CreateReportContainer from "./components/CreateReportContainer.jsx";
 import axios from "axios";
 const api = axios.create({
   baseURL: "https://express-damage-reporting-tool.onrender.com",
@@ -16,6 +17,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(null);
   const [refresh, setRefresh] = useState(false);
+
   const deleteReport = async (id) => {
     try {
       console.log("Deleting report with id", id);
@@ -52,13 +54,14 @@ function App() {
     <>
       <div>
         <Header />
+        {/*<CreateReportContainer />*/}
         <SearchBar fetchReports={fetchReports} refresh={refresh} />
         <ReportsContainer
           deleteReport={deleteReport}
           damageReportList={damageReportList}
           loading={loading}
           message={message}
-        />
+        ></ReportsContainer>
         {/*<ReportMain />*/}
       </div>
     </>

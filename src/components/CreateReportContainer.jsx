@@ -1,20 +1,16 @@
 import { useEffect, useState } from "react";
 import Button from "./Button.jsx";
 import CreationForm from "./CreationForm.jsx";
-const CreateReporteContainer = ({ toggleCreate, setToggleCreate }) => {
+const CreateReportContainer = () => {
   const [isVisible, setIsVisible] = useState(false);
-  useEffect(() => {
-    setIsVisible(!toggleCreate);
-  }, [toggleCreate]);
 
   const createButton = (e) => {
     e.preventDefault();
-    setIsVisible((isVisible) => !isVisible);
-    setToggleCreate(!toggleCreate);
+    setIsVisible(true);
   };
   const cancel = (e) => {
     e.preventDefault();
-    setIsVisible((isVisible) => !isVisible);
+    setIsVisible(false);
   };
   const buttonValues = {};
   if (!isVisible) {
@@ -46,4 +42,4 @@ const CreateReporteContainer = ({ toggleCreate, setToggleCreate }) => {
     </>
   );
 };
-export default CreateReporteContainer;
+export default CreateReportContainer;

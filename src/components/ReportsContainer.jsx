@@ -23,14 +23,15 @@ function ReportsContainer({
   return (
     <section>
       {damageReportList.map((damageReport) => {
-        const { _id, title, type, desc } = damageReport;
+        console.log(damageReport);
+        const { _id, title, severity, desc } = damageReport;
         return (
           <Report
             deleteReport={deleteReport}
             key={_id}
             id={_id}
             title={title}
-            type={type}
+            severity={severity}
             desc={desc}
           ></Report>
         );
