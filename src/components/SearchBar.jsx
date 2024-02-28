@@ -1,14 +1,15 @@
 import { useState, useEffect } from "react";
-function SearchBar({ setContainer }) {
+function SearchBar({ fetchReports, refresh }) {
   const [search, setSearch] = useState("");
   useEffect(() => {
     setSearch((search) => search);
-  }, []);
+    fetchReports(search);
+  }, [refresh]);
 
   // todo connect to a serach button and send to reports container
   const handleSearch = (e) => {
     setSearch(e.target.value);
-    setContainer(e.target.value);
+    fetchReports(e.target.value);
   };
 
   return (
