@@ -1,44 +1,70 @@
-import Button from "./Button.jsx";
-import axios from "axios";
-const api = axios.create({
-  baseURL: "https://express-damage-reporting-tool.onrender.com",
-});
-const create = async (e) => {
-  e.preventDefault();
-  const report = {
-    id: document.getElementsByName("id")[0].value,
-    type: document.getElementsByName("type")[0].value,
-    desc: document.getElementsByName("desc")[0].value,
+import { useEffect, useState } from "react";
+const CreationForm = ({ createReport, setIsVisible }) => {
+  const [severity, setSeverity] = useState("default");
+  const [title, setTitle] = useState("");
+  const [desc, setDesc] = useState("");
+  const [buttonDisabled, setButtonDisabled] = useState(true);
+  const damageReport = {
+    title: title,
+    severity: severity,
+    desc: desc,
   };
-  try {
-    await api.post("/damage-reports/", report);
-  } catch (e) {
-    console.log(e.message);
-  }
-};
-const CreationForm = () => {
+  useEffect(() => {
+    if (severity !== "default" && title && desc) {
+      setButtonDisabled(false);
+    } else {
+      setButtonDisabled(true);
+    }
+  }, [severity, title, desc]);
+  const handleCreateReport = (event) => {
+    event.preventDefault();
+
+    console.log(damageReport);
+    createReport(damageReport);
+    setIsVisible(false);
+  };
+
   return (
     <div>
       <form>
-        <label>
-          Report ID:
-          <input type="text" name="id" />
-        </label>
-        <label>
-          Type:
-          <select name="severity" id="severity">
-            <option value="low">Low</option>
-            <option value="medium">Medium</option>
-            <option value="high">High</option>
-          </select>
-        </label>
-        <label>
-          Description:
-          <input type="text" name="desc" />
-        </label>
-        <Button onClick={create} btnVal={"Create"} />
+        <label>Report Title:</label>
+        <input
+          type="text"
+          name="id"
+          onChange={(e) => setTitle(e.target.value)}
+          required={true}
+          placeholder={"Enter report title here..."}
+        />
+        <label>Severity</label>
+        <select
+          defaultValue={""}
+          name="severity"
+          id="severity"
+          required={true}
+          onChange={(e) => setSeverity(e.target.value)}
+        >
+          <option value="">Select Severity </option>
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select>
+        <label>Description:</label>
+        <textarea
+          name="desc"
+          required={true}
+          placeholder={"Write report description here..."}
+          onChange={(e) => setDesc(e.target.value)}
+        ></textarea>
+        <button
+          disabled={buttonDisabled}
+          type="submit"
+          onClick={(e) => handleCreateReport(e)}
+        >
+          Create
+        </button>
       </form>
     </div>
   );
 };
+
 export default CreationForm;

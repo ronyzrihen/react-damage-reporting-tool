@@ -20,6 +20,9 @@ function ReportsContainer({
   if (message) {
     return <h2>{message}</h2>;
   }
+  if (damageReportList.length === 0) {
+    return <h2>No reports found</h2>;
+  }
   return (
     <section>
       {damageReportList.map((damageReport) => {

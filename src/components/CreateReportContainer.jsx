@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
-import Button from "./Button.jsx";
+import { useState } from "react";
 import CreationForm from "./CreationForm.jsx";
-const CreateReportContainer = () => {
+const CreateReportContainer = ({ createReport }) => {
   const [isVisible, setIsVisible] = useState(false);
 
   const createButton = (e) => {
@@ -12,6 +11,7 @@ const CreateReportContainer = () => {
     e.preventDefault();
     setIsVisible(false);
   };
+
   const buttonValues = {};
   if (!isVisible) {
     buttonValues.onClick = createButton;
@@ -21,24 +21,19 @@ const CreateReportContainer = () => {
     buttonValues.btnVal = "Cancel";
   }
 
-  if (isVisible) {
-    return (
-      <>
-        <div>
-          <Button onClick={buttonValues.onClick} btnVal={buttonValues.btnVal} />
-        </div>
-        <div>
-          <CreationForm />
-        </div>
-      </>
-    );
-  }
-
   return (
     <>
       <div>
-        <Button onClick={buttonValues.onClick} btnVal={buttonValues.btnVal} />
+        <button onClick={buttonValues.onClick}>{buttonValues.btnVal}</button>
       </div>
+      {isVisible ? (
+        <div>
+          <CreationForm
+            createReport={createReport}
+            setIsVisible={setIsVisible}
+          ></CreationForm>
+        </div>
+      ) : null}
     </>
   );
 };

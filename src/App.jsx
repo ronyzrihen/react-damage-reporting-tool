@@ -11,13 +11,20 @@ const api = axios.create({
 import "./App.css";
 
 function App() {
-  // const [count, setCount] = useState(0)
-
   const [damageReportList, setDamageReportList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(null);
   const [refresh, setRefresh] = useState(false);
-
+  // todo move all api functions to a different module
+  // todo delete Button component when ready
+  const createReport = async (report) => {
+    try {
+      await api.post("/damage-reports/", report);
+      setRefresh((refresh) => !refresh);
+    } catch (error) {
+      setMessage(error);
+    }
+  };
   const deleteReport = async (id) => {
     try {
       console.log("Deleting report with id", id);
@@ -54,7 +61,7 @@ function App() {
     <>
       <div>
         <Header />
-        {/*<CreateReportContainer />*/}
+        <CreateReportContainer createReport={createReport} />
         <SearchBar fetchReports={fetchReports} refresh={refresh} />
         <ReportsContainer
           deleteReport={deleteReport}
