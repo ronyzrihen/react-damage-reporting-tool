@@ -20,7 +20,7 @@ const CreationForm = ({ createReport, setIsVisible }) => {
     event.preventDefault();
 
     console.log(damageReport);
-    createReport(damageReport);
+    createReport(damageReport); // todo add try catch
     setIsVisible(false);
   };
 
