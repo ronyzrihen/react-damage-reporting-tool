@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-const CreationForm = ({ createReport, setIsVisible }) => {
+
+const CreationForm = ({ setIsVisible, setCreate }) => {
   const [severity, setSeverity] = useState("default");
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
@@ -16,11 +17,10 @@ const CreationForm = ({ createReport, setIsVisible }) => {
       setButtonDisabled(true);
     }
   }, [severity, title, desc]);
-  const handleCreateReport = (event) => {
+  const handleCreateReport = async (event) => {
     event.preventDefault();
 
-    console.log(damageReport);
-    createReport(damageReport); // todo add try catch
+    await setCreate(damageReport); // todo add try catch
     setIsVisible(false);
   };
 

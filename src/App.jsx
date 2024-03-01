@@ -17,59 +17,15 @@ function App() {
   const [refresh, setRefresh] = useState(false);
   // todo move all api functions to a different module
   // todo delete Button component when ready
-  const createReport = async (report) => {
-    try {
-      await api.post("/damage-reports/", report);
-      setRefresh((refresh) => !refresh);
-    } catch (error) {
-      setMessage(error);
-    }
-  };
-  const deleteReport = async (id) => {
-    try {
-      console.log("Deleting report with id", id);
-      await api.delete(`/damage-reports/${id}`);
-      setRefresh((refresh) => !refresh);
-    } catch (error) {
-      setMessage("Error deleting report");
-    }
-  };
-  const fetchReports = async (searchTerm) => {
-    const search = searchTerm ? `title/${searchTerm}` : "";
-    try {
-      setLoading(true);
-      setMessage(null);
-      const response = await api.get(`/damage-reports/${search}`);
-      setDamageReportList(response.data);
-    } catch (error) {
-      if (error.response && error.response.status === 404) {
-        setDamageReportList([]);
-        setMessage("No reports found for the provided search term.");
-      } else if (error.response) {
-        setMessage(
-          `HTTP Error ${error.response.status}: ${error.response.statusText}`,
-        );
-      } else {
-        setMessage(error.message);
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
+  // todo add are you sure you want to delete this report
+  // todo delete errors folder if you didnt use it
 
   return (
     <>
       <div>
         <Header />
-        <CreateReportContainer createReport={createReport} />
-        <SearchBar fetchReports={fetchReports} refresh={refresh} />
-        <ReportsContainer
-          deleteReport={deleteReport}
-          damageReportList={damageReportList}
-          loading={loading}
-          message={message}
-        ></ReportsContainer>
-        {/*<ReportMain />*/}
+        <CreateReportContainer setRefresh={setRefresh} />
+        <SearchBar refresh={refresh} setRefresh={setRefresh} />
       </div>
     </>
   );

@@ -1,8 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CreationForm from "./CreationForm.jsx";
-const CreateReportContainer = ({ createReport }) => {
+import { createReport } from "../service/apiRequests.js";
+const CreateReportContainer = ({ setRefresh }) => {
+  const [message, setMessage] = useState("");
   const [isVisible, setIsVisible] = useState(false);
-
+  const [create, setCreate] = useState({});
+  useEffect(() => {
+    if (!isVisible) {
+      console.log("refreshing");
+      setRefresh((refresh) => !refresh);
+    }
+  }, [isVisible]);
+  useEffect(() => {
+    if (create) {
+      try {
+        createReport(create);
+      } catch (error) {
+        setMessage(error);
+      }
+    }
+  }, [create]);
+  if (message) {
+    return <h2>{message}</h2>; // todo make into a component
+  }
   const createButton = (e) => {
     e.preventDefault();
     setIsVisible(true);
@@ -29,8 +49,8 @@ const CreateReportContainer = ({ createReport }) => {
       {isVisible ? (
         <div>
           <CreationForm
-            createReport={createReport}
             setIsVisible={setIsVisible}
+            setCreate={setCreate}
           ></CreationForm>
         </div>
       ) : null}

@@ -1,17 +1,9 @@
 import { useState, useEffect } from "react";
-function SearchBar({ fetchReports, refresh }) {
+import ReportsContainer from "./ReportsContainer.jsx";
+import { fetchReports } from "../service/apiRequests";
+function SearchBar({ refresh, setRefresh }) {
+  // todo check if theres a way to pass refresh directly to report
   const [search, setSearch] = useState("");
-  useEffect(() => {
-    setSearch((search) => search);
-    fetchReports(search);
-  }, [refresh]);
-
-  // todo connect to a serach button and send to reports container
-  const handleSearch = (e) => {
-    setSearch(e.target.value);
-    fetchReports(e.target.value);
-  };
-
   return (
     <>
       <div>
@@ -19,9 +11,14 @@ function SearchBar({ fetchReports, refresh }) {
           type="text"
           placeholder="Search ID"
           value={search}
-          onChange={handleSearch}
+          onChange={(e) => setSearch(e.target.value)}
         />
       </div>
+      <ReportsContainer
+        search={search}
+        refresh={refresh}
+        setRefresh={setRefresh}
+      ></ReportsContainer>
     </>
   );
 }
