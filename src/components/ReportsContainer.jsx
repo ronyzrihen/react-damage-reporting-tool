@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { fetchReports } from "../service/apiRequests";
 import Report from "./Report.jsx";
+import { ItemContainer } from "./styles/ItemContainer.styled.js";
 
 function ReportsContainer({ search, refresh, setRefresh }) {
   const [damageReportList, setDamageReportList] = useState([]);
@@ -41,7 +42,7 @@ function ReportsContainer({ search, refresh, setRefresh }) {
     return <h2>No reports found</h2>;
   }
   return (
-    <section>
+    <ItemContainer>
       {damageReportList.map((damageReport) => {
         const { _id } = damageReport;
         return (
@@ -53,7 +54,7 @@ function ReportsContainer({ search, refresh, setRefresh }) {
           ></Report>
         );
       })}
-    </section>
+    </ItemContainer>
   );
 }
 export default ReportsContainer;

@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import CreationForm from "./CreationForm.jsx";
 import { createReport } from "../service/apiRequests.js";
+import { CardStyled } from "./styles/Card.styled.js";
+import { ButtonsStyled } from "./styles/Buttons.styled.js";
 const CreateReportContainer = ({ setRefresh }) => {
   const [message, setMessage] = useState("");
   const [isVisible, setIsVisible] = useState(false);
-  const [create, setCreate] = useState({});
+  const [create, setCreate] = useState(null);
   useEffect(() => {
     if (!isVisible) {
       console.log("refreshing");
@@ -12,14 +14,20 @@ const CreateReportContainer = ({ setRefresh }) => {
     }
   }, [isVisible]);
   useEffect(() => {
-    if (create) {
-      try {
-        createReport(create);
-      } catch (error) {
-        setMessage(error);
+    console.log("create", create);
+    const newReport = async () => {
+      if (create) {
+        try {
+          await createReport(create);
+          setIsVisible(false);
+        } catch (error) {
+          setMessage(error.message);
+        }
       }
-    }
+    };
+    newReport();
   }, [create]);
+
   if (message) {
     return <h2>{message}</h2>; // todo make into a component
   }
@@ -32,27 +40,21 @@ const CreateReportContainer = ({ setRefresh }) => {
     setIsVisible(false);
   };
 
-  const buttonValues = {};
-  if (!isVisible) {
-    buttonValues.onClick = createButton;
-    buttonValues.btnVal = "Create Report";
-  } else {
-    buttonValues.onClick = cancel;
-    buttonValues.btnVal = "Cancel";
-  }
-
   return (
     <>
       <div>
-        <button onClick={buttonValues.onClick}>{buttonValues.btnVal}</button>
+        {isVisible ? (
+          <ButtonsStyled color={"#DC4C64"} onClick={cancel}>
+            Cancel
+          </ButtonsStyled>
+        ) : (
+          <ButtonsStyled onClick={createButton}>Create</ButtonsStyled>
+        )}
       </div>
       {isVisible ? (
-        <div>
-          <CreationForm
-            setIsVisible={setIsVisible}
-            setCreate={setCreate}
-          ></CreationForm>
-        </div>
+        <CardStyled>
+          <CreationForm purpose={"Create"} setAction={setCreate}></CreationForm>
+        </CardStyled>
       ) : null}
     </>
   );

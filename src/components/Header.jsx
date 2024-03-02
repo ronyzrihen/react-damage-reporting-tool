@@ -1,4 +1,4 @@
-const NavBar = () => {
+const Header = () => {
   return (
     <header>
       <h1>Damage Reporting Tool</h1>
@@ -6,4 +6,4 @@ const NavBar = () => {
   );
 };
 
-export default NavBar;
+export default Header;

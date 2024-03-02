@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
-
-const CreationForm = ({ setIsVisible, setCreate, data }) => {
-  const [severity, setSeverity] = useState(data?.severity || "");
+import {
+  CreationFormStyled,
+  FormInputContainer,
+} from "./styles/Card.styled.js";
+import { _Input } from "./styles/Buttons.styled.js";
+const CreationForm = ({ setAction, purpose, data }) => {
+  const [severity, setSeverity] = useState(data?.severity || "default");
   const [title, setTitle] = useState(data?.title || "");
   const [desc, setDesc] = useState(data?.desc || "");
   const [buttonDisabled, setButtonDisabled] = useState(true);
@@ -20,22 +24,23 @@ const CreationForm = ({ setIsVisible, setCreate, data }) => {
   const handleCreateReport = async (event) => {
     event.preventDefault();
 
-    await setCreate(damageReport); // todo add try catch
-    setIsVisible(false);
+    await setAction(damageReport);
   };
 
   return (
-    <div>
-      <form>
-        <label>Report Title:</label>
-        <input
-          type="text"
-          name="id"
-          onChange={(e) => setTitle(e.target.value)}
-          required={true}
-          placeholder={"Enter report title here..."}
-          value={title}
-        ></input>
+    <>
+      <h2>{`${purpose} Report`} </h2>
+      <CreationFormStyled>
+        <FormInputContainer>
+          <_Input
+            type="text"
+            name="id"
+            onChange={(e) => setTitle(e.target.value)}
+            required={true}
+            placeholder={"Report Title"}
+            value={title}
+          ></_Input>
+        </FormInputContainer>
         <label>Severity</label>
         <select
           defaultValue={severity}
@@ -44,7 +49,7 @@ const CreationForm = ({ setIsVisible, setCreate, data }) => {
           required={true}
           onChange={(e) => setSeverity(e.target.value)}
         >
-          <option value="">Select Severity </option>
+          <option value="default">Select Severity </option>
           <option value="Low">Low</option>
           <option value="Medium">Medium</option>
           <option value="High">High</option>
@@ -53,7 +58,7 @@ const CreationForm = ({ setIsVisible, setCreate, data }) => {
         <textarea
           name="desc"
           required={true}
-          placeholder={"Write report description here..."}
+          placeholder={"Description"}
           onChange={(e) => setDesc(e.target.value)}
         >
           {desc}
@@ -63,10 +68,10 @@ const CreationForm = ({ setIsVisible, setCreate, data }) => {
           type="submit"
           onClick={(e) => handleCreateReport(e)}
         >
-          Create
+          {purpose}
         </button>
-      </form>
-    </div>
+      </CreationFormStyled>
+    </>
   );
 };
 
