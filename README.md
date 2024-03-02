@@ -54,3 +54,6 @@ designed with:
 4. **Note:** All fields are required before submitting the form.
 
 
+## Figma Design
+You can find the Figma design [here](https://www.figma.com/file/R3opkRdGbJ1Phfu0H0GoEf/Untitled?type=design&node-id=0%3A1&mode=dev&t=4CmzlKLZZ54ehkjL-1)    
+
