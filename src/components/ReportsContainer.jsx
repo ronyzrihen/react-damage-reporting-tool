@@ -49,6 +49,7 @@ function ReportsContainer({ search, refresh, setRefresh }) {
             key={_id}
             damageReport={damageReport}
             setRefresh={setRefresh}
+            setMessage={setMessage}
           ></Report>
         );
       })}

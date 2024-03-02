@@ -11,9 +11,6 @@ const api = axios.create({
 import "./App.css";
 
 function App() {
-  const [damageReportList, setDamageReportList] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState(null);
   const [refresh, setRefresh] = useState(false);
   // todo move all api functions to a different module
   // todo delete Button component when ready

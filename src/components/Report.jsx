@@ -1,7 +1,7 @@
 import { deleteReport, updateReport } from "../service/apiRequests";
-
+import CreationForm from "./CreationForm.jsx";
 import { useState } from "react";
-const Report = ({ damageReport, setRefresh }) => {
+const Report = ({ damageReport, setRefresh, setMessage }) => {
   const [editMode, setEditMode] = useState(false);
   // todo remove inline styles
   const { _id, title, severity, desc } = damageReport;
@@ -11,23 +11,28 @@ const Report = ({ damageReport, setRefresh }) => {
       await deleteReport(_id);
       setRefresh((refresh) => !refresh);
     } catch (error) {
-      console.error(error);
+      setMessage(error);
     }
   };
-  const handleEdit = () => {
-    updateReport(_id, { title, severity, desc });
+  const handleEdit = async (report) => {
+    try {
+      await updateReport(_id, report);
+      setRefresh((refresh) => !refresh);
+    } catch (error) {
+      setMessage(error);
+    }
   };
   if (editMode) {
     return (
       <div style={{ borderStyle: "solid", margin: 5 }}>
         <button onClick={handleDelete}>Delete</button>
-        <button onClick={setEditMode((editMode) => !editMode)}>Cancel</button>
+        <button onClick={() => setEditMode(false)}>Cancel</button>
         <div>
-          <h3>{title}</h3>
-          <h3>{severity}</h3>
-          <h4>Description:</h4>
-          <p>{desc}</p>
-          <button onClick={handleEdit}>Cancel</button>
+          <CreationForm
+            setIsVisible={setEditMode}
+            setCreate={handleEdit}
+            data={damageReport}
+          ></CreationForm>
         </div>
       </div>
     );
@@ -35,7 +40,7 @@ const Report = ({ damageReport, setRefresh }) => {
   return (
     <div style={{ borderStyle: "solid", margin: 5 }}>
       <button onClick={handleDelete}>Delete</button>
-      <button onClick={setEditMode((editMode) => !editMode)}>Delete</button>
+      <button onClick={() => setEditMode(true)}>Edit</button>
       <div>
         <h3>{title}</h3>
         <h3>{severity}</h3>

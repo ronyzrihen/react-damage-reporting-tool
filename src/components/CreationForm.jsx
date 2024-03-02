@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 
-const CreationForm = ({ setIsVisible, setCreate }) => {
-  const [severity, setSeverity] = useState("default");
-  const [title, setTitle] = useState("");
-  const [desc, setDesc] = useState("");
+const CreationForm = ({ setIsVisible, setCreate, data }) => {
+  const [severity, setSeverity] = useState(data?.severity || "");
+  const [title, setTitle] = useState(data?.title || "");
+  const [desc, setDesc] = useState(data?.desc || "");
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const damageReport = {
     title: title,
@@ -34,19 +34,20 @@ const CreationForm = ({ setIsVisible, setCreate }) => {
           onChange={(e) => setTitle(e.target.value)}
           required={true}
           placeholder={"Enter report title here..."}
-        />
+          value={title}
+        ></input>
         <label>Severity</label>
         <select
-          defaultValue={""}
+          defaultValue={severity}
           name="severity"
           id="severity"
           required={true}
           onChange={(e) => setSeverity(e.target.value)}
         >
           <option value="">Select Severity </option>
-          <option value="low">Low</option>
-          <option value="medium">Medium</option>
-          <option value="high">High</option>
+          <option value="Low">Low</option>
+          <option value="Medium">Medium</option>
+          <option value="High">High</option>
         </select>
         <label>Description:</label>
         <textarea
@@ -54,7 +55,9 @@ const CreationForm = ({ setIsVisible, setCreate }) => {
           required={true}
           placeholder={"Write report description here..."}
           onChange={(e) => setDesc(e.target.value)}
-        ></textarea>
+        >
+          {desc}
+        </textarea>
         <button
           disabled={buttonDisabled}
           type="submit"
