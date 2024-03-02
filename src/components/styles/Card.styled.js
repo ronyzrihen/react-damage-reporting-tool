@@ -43,7 +43,6 @@ const CardContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  //padding: 1rem;
 `;
 
 const SeverityBadge = styled.span`
@@ -56,26 +55,10 @@ const SeverityBadge = styled.span`
 const DescriptionBox = styled.div`
   padding: 1rem;
   width: 12rem;
-  height: 4rem;
+  height: 3.5rem;
   background-color: #eff2f6;
   border-radius: 0 0 1rem 1rem;
   overflow: auto;
-`;
-const CreationFormStyled = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  padding: 1rem;
-  width: 100%;
-  height: 100%;
-`;
-const FormInputContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  justify-content: center;
 `;
 
 export {
@@ -86,6 +69,4 @@ export {
   CardStyled,
   CardContent,
   DescriptionBox,
-  CreationFormStyled,
-  FormInputContainer,
 };

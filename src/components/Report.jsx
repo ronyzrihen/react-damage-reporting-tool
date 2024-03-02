@@ -10,10 +10,10 @@ import {
   SeverityBadge,
   DescriptionBox,
 } from "./styles/Card.styled.js";
+import { InputsStyled } from "./styles/Inputs.styled.js";
 
 const Report = ({ damageReport, setRefresh, setMessage }) => {
   const [editMode, setEditMode] = useState(false);
-  // todo remove inline styles
   const { _id, title, severity, desc } = damageReport;
 
   const handleDelete = async () => {
@@ -39,7 +39,9 @@ const Report = ({ damageReport, setRefresh, setMessage }) => {
       <CardButtons>
         <TrashStyled onClick={handleDelete} />
         {editMode ? (
-          <button onClick={() => setEditMode(false)}>Cancel</button>
+          <InputsStyled color={"#DC4C64"} onClick={() => setEditMode(false)}>
+            Cancel
+          </InputsStyled>
         ) : (
           <EditStyled onClick={() => setEditMode(true)} />
         )}
@@ -59,8 +61,8 @@ const Report = ({ damageReport, setRefresh, setMessage }) => {
             <h1>{title}</h1>
             <SeverityBadge
               color={
-                severity === "#54B4D3"
-                  ? "lightBlue"
+                severity === "Low"
+                  ? "#54B4D3"
                   : severity === "Medium"
                     ? "#E4A11B"
                     : "#DC4C64"

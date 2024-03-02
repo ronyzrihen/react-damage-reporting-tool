@@ -36,7 +36,7 @@ function ReportsContainer({ search, refresh, setRefresh }) {
     return <h1>Loading...</h1>;
   }
   if (message) {
-    return <h2>{message}</h2>; // todo make into a component
+    return <h2>{message}</h2>;
   }
   if (damageReportList.length === 0) {
     return <h2>No reports found</h2>;

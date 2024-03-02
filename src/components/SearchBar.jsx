@@ -1,25 +1,26 @@
 import { useState, useEffect } from "react";
 import ReportsContainer from "./ReportsContainer.jsx";
-import { fetchReports } from "../service/apiRequests";
+import { _Input } from "./styles/Inputs.styled.js";
+import { SearchBarContainer } from "./styles/ItemContainer.styled.js";
+
 function SearchBar({ refresh, setRefresh }) {
-  // todo check if theres a way to pass refresh directly to report
   const [search, setSearch] = useState("");
   return (
-    <>
-      <div>
-        <input
+    <section>
+      <SearchBarContainer>
+        <_Input
           type="text"
           placeholder="Search ID"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-        />
-      </div>
+        ></_Input>
+      </SearchBarContainer>
       <ReportsContainer
         search={search}
         refresh={refresh}
         setRefresh={setRefresh}
       ></ReportsContainer>
-    </>
+    </section>
   );
 }
 export default SearchBar;
